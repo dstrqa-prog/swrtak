@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الألعاب المحلية</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/games/style.css" />
+</head>
+<body>
+  <main class="container panel">
+    <a href="/">⬅ العودة للرئيسية</a>
+    <section class="card">
+      <h2>XO (لاعبان أو ضد AI)</h2>
+      <label>الوضع:
+        <select id="mode">
+          <option value="pvp">لاعب ضد لاعب</option>
+          <option value="ai">ضد الذكاء الاصطناعي</option>
+        </select>
+      </label>
+      <div id="xo-board" class="xo-board"></div>
+      <p id="xo-status"></p>
+      <button id="reset">إعادة اللعبة</button>
+    </section>
+
+    <section class="card">
+      <h2>ألعاب مخطط لها</h2>
+      <div class="games-grid">
+        <span>♟️ Chess</span><span>🃏 Uno</span><span>🎲 Ludo</span><span>🁢 Domino</span>
+        <span>🔴 4 in a row</span><span>🎾 Tennis</span><span>🪢 شد الحبل</span>
+      </div>
+      <small>تم تجهيز الهيكلية لتطوير كل لعبة داخل مجلدها الخاص لاحقاً.</small>
+    </section>
+  </main>
+  <script src="/games/script.js"></script>
+</body>
+</html>

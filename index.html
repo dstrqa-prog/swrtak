@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منصة محلية متعددة</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>منصة الترفيه المحلية</h1>
+    <div id="online-pill">المتصلون الآن: 0</div>
+  </header>
+
+  <main class="container">
+    <section class="card login-card">
+      <h2>تسجيل الدخول</h2>
+      <form id="login-form">
+        <input id="username" type="text" placeholder="اكتب اسم المستخدم" required />
+        <button type="submit">دخول</button>
+      </form>
+      <p id="login-status">غير مسجل الدخول.</p>
+    </section>
+
+    <section class="card modules">
+      <h2>الوحدات</h2>
+      <div class="grid">
+        <a class="module-link" href="/videos/index.html">🎬 الفيديوهات المحلية</a>
+        <a class="module-link" href="/games/index.html">🎮 الألعاب</a>
+        <a class="module-link" href="/chat/index.html">💬 الشات</a>
+        <a class="module-link" href="/stories/index.html">📖 الستوري 24 ساعة</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>آخر الستوري</h2>
+      <div id="stories-preview" class="stories-preview"></div>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

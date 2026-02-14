@@ -1,0 +1,27 @@
+video {
+  width: 100%;
+  max-height: 60vh;
+  border-radius: 14px;
+  background: #000;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+#video-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.7rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+#video-list li {
+  background: #1f2937;
+  padding: 0.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+}

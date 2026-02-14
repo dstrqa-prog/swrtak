@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الشات</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/chat/chat.css" />
+</head>
+<body>
+  <main class="container panel">
+    <a href="/">⬅ العودة للرئيسية</a>
+
+    <section class="card">
+      <h2>الشات العام</h2>
+      <div id="public-messages" class="messages"></div>
+      <form id="public-form" class="inline-form">
+        <input id="public-input" placeholder="اكتب رسالة عامة" required />
+        <button>إرسال</button>
+      </form>
+      <input id="public-audio" type="file" accept="audio/*" />
+    </section>
+
+    <section class="card">
+      <h2>الشات الخاص</h2>
+      <form id="private-form" class="inline-form">
+        <input id="private-target" placeholder="اسم المستخدم الهدف" required />
+        <input id="private-input" placeholder="اكتب رسالة خاصة" required />
+        <button>إرسال</button>
+      </form>
+      <input id="private-audio" type="file" accept="audio/*" />
+      <div id="private-messages" class="messages"></div>
+    </section>
+  </main>
+  <script src="/chat/chat.js"></script>
+</body>
+</html>
