@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الفيديوهات المحلية</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/videos/style.css" />
+</head>
+<body>
+  <main class="container panel">
+    <a href="/">⬅ العودة للرئيسية</a>
+    <section class="card">
+      <h2>TikTok محلي</h2>
+      <video id="tiktok-player" controls autoplay loop muted playsinline></video>
+      <div class="controls">
+        <button id="prev-tt">السابق</button>
+        <button id="next-tt">التالي</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>YouTube محلي</h2>
+      <input id="search" placeholder="ابحث باسم الفيديو أو قائمة التشغيل" />
+      <select id="playlist-select"></select>
+      <video id="yt-player" controls></video>
+      <ul id="video-list"></ul>
+    </section>
+  </main>
+  <script src="/videos/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الستوري</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/stories/style.css" />
+</head>
+<body>
+  <main class="container panel">
+    <a href="/">⬅ العودة للرئيسية</a>
+    <section class="card">
+      <h2>إضافة ستوري لمدة 24 ساعة</h2>
+      <form id="story-form">
+        <input id="story-file" type="file" accept="image/*,video/*" required />
+        <button>رفع</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>الستوري النشطة</h2>
+      <div id="stories" class="stories-grid"></div>
+    </section>
+  </main>
+  <script src="/stories/script.js"></script>
+</body>
+</html>
