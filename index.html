@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منصة محلية متعددة</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>منصة محلية متعددة</h1>
+    <p>فيديوهات + ألعاب + شات + ستوري (Localhost)</p>
+  </header>
+
+  <section class="card" id="login-card">
+    <h2>تسجيل الدخول</h2>
+    <form id="login-form">
+      <input id="username" placeholder="اسم المستخدم" required />
+      <button type="submit">دخول</button>
+    </form>
+    <p id="welcome"></p>
+    <p id="online-count">المتصلون الآن: 0</p>
+  </section>
+
+  <main class="grid">
+    <section class="card">
+      <h2>فيديو TikTok المحلي</h2>
+      <div id="tiktok-feed" class="stack"></div>
+    </section>
+
+    <section class="card">
+      <h2>Youtube محلي</h2>
+      <input id="yt-search" placeholder="ابحث عن فيديو" />
+      <div id="yt-playlists"></div>
+    </section>
+
+    <section class="card">
+      <h2>الألعاب</h2>
+      <div class="games-list">
+        <a href="/games/xo/index.html" target="_blank">XO</a>
+        <a href="/games/chess/index.html" target="_blank">Chess</a>
+        <a href="/games/uno/index.html" target="_blank">Uno</a>
+        <a href="/games/ludo/index.html" target="_blank">Ludo</a>
+        <a href="/games/domino/index.html" target="_blank">Domino</a>
+        <a href="/games/4inrow/index.html" target="_blank">4 in a row</a>
+        <a href="/games/tennis/index.html" target="_blank">Tennis</a>
+        <a href="/games/tugofwar/index.html" target="_blank">شد الحبل</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>الستوري (24 ساعة)</h2>
+      <form id="story-form">
+        <input id="story-url" placeholder="رابط صورة أو فيديو" required />
+        <select id="story-type">
+          <option value="image">صورة</option>
+          <option value="video">فيديو</option>
+        </select>
+        <button type="submit">نشر</button>
+      </form>
+      <div id="stories"></div>
+    </section>
+
+    <section class="card">
+      <h2>الشات</h2>
+      <p><a href="/chat/chat.html" target="_blank">فتح واجهة الشات الكاملة</a></p>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

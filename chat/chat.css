@@ -1,0 +1,5 @@
+body{font-family:Arial,sans-serif;background:#111;color:#fff;padding:1rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.box{background:#222;min-height:220px;padding:.6rem;border-radius:8px;overflow:auto}
+input,button{width:100%;padding:.6rem;margin:.3rem 0}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
