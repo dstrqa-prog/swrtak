@@ -1,69 +1,113 @@
-const usernameInput = document.getElementById('username');
-const loginForm = document.getElementById('login-form');
-const loginStatus = document.getElementById('login-status');
-const onlinePill = document.getElementById('online-pill');
-const storiesPreview = document.getElementById('stories-preview');
+const products = [
+  { id: 'PRD-101', name: 'عطر ليلي فاخر', category: 'العطور', price: 185000, image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=60' },
+  { id: 'PRD-102', name: 'ساعة كلاسيك', category: 'الساعات', price: 240000, image: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=60' },
+  { id: 'PRD-103', name: 'حقيبة نسائية جلد', category: 'الإكسسوارات', price: 210000, image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=60' },
+  { id: 'PRD-104', name: 'جاكيت كاجوال', category: 'الملابس', price: 175000, image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=60' },
+  { id: 'PRD-105', name: 'نظارة شمسية', category: 'الإكسسوارات', price: 98000, image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=900&q=60' },
+  { id: 'PRD-106', name: 'عطر صباحي منعش', category: 'العطور', price: 162000, image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=60' },
+];
 
-function setUser(username) {
-  localStorage.setItem('local_app_user', username);
+const state = { cart: [], activeCategory: 'الكل', query: '' };
+const categories = ['الكل', ...new Set(products.map((p) => p.category))];
+
+const productsGrid = document.getElementById('products-grid');
+const categoriesEl = document.getElementById('categories');
+const searchEl = document.getElementById('search');
+const cartCountEl = document.getElementById('cart-count');
+const cartBtn = document.getElementById('cart-btn');
+const cartDrawer = document.getElementById('cart-drawer');
+const cartItemsEl = document.getElementById('cart-items');
+const cartTotalEl = document.getElementById('cart-total');
+const paymentCodeEl = document.getElementById('payment-code');
+const generateCodeBtn = document.getElementById('generate-code');
+
+function generatePaymentCode() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code = '';
+  for (let i = 0; i < 10; i++) code += chars[Math.floor(Math.random() * chars.length)];
+  return code;
 }
 
-function getUser() {
-  return localStorage.getItem('local_app_user') || '';
+function renderCategories() {
+  categoriesEl.innerHTML = '';
+  categories.forEach((cat) => {
+    const chip = document.createElement('button');
+    chip.className = `category-chip ${state.activeCategory === cat ? 'active' : ''}`;
+    chip.textContent = cat;
+    chip.onclick = () => {
+      state.activeCategory = cat;
+      renderCategories();
+      renderProducts();
+    };
+    categoriesEl.appendChild(chip);
+  });
 }
 
-async function refreshStatus() {
-  const res = await fetch('/api/users/online');
-  const data = await res.json();
-  onlinePill.textContent = `المتصلون الآن: ${data.count}`;
-}
+function renderProducts() {
+  const filtered = products.filter((p) => {
+    const categoryMatch = state.activeCategory === 'الكل' || p.category === state.activeCategory;
+    const q = state.query.trim().toLowerCase();
+    const queryMatch = !q || p.name.toLowerCase().includes(q) || p.id.toLowerCase().includes(q);
+    return categoryMatch && queryMatch;
+  });
 
-async function refreshStories() {
-  const res = await fetch('/api/stories');
-  const data = await res.json();
-  storiesPreview.innerHTML = '';
-  if (!data.stories.length) {
-    storiesPreview.innerHTML = '<p>لا يوجد ستوري حالياً.</p>';
+  productsGrid.innerHTML = '';
+  if (!filtered.length) {
+    productsGrid.innerHTML = '<p>لا توجد نتائج مطابقة حالياً.</p>';
     return;
   }
 
-  data.stories.slice(0, 6).forEach((story) => {
-    const div = document.createElement('div');
-    div.className = 'story-chip';
-    div.innerHTML = `<strong>${story.user}</strong><br><small>تنتهي خلال 24 ساعة</small>`;
-    storiesPreview.appendChild(div);
+  filtered.forEach((p) => {
+    const card = document.createElement('article');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}">
+      <h4>${p.name}</h4>
+      <p class="meta">Product ID: ${p.id}</p>
+      <p class="price">${p.price.toLocaleString()} ل.س</p>
+      <button class="neon-btn">إضافة للسلة</button>
+    `;
+    card.querySelector('button').onclick = () => addToCart(p);
+    productsGrid.appendChild(card);
   });
 }
 
-if (loginForm) {
-  loginForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const username = usernameInput.value.trim();
-    if (!username) return;
+function addToCart(product) {
+  const item = state.cart.find((i) => i.id === product.id);
+  if (item) item.qty += 1;
+  else state.cart.push({ ...product, qty: 1 });
+  renderCart();
+}
 
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username }),
-    });
+function renderCart() {
+  const count = state.cart.reduce((sum, item) => sum + item.qty, 0);
+  const total = state.cart.reduce((sum, item) => sum + item.qty * item.price, 0);
+  cartCountEl.textContent = count;
+  cartTotalEl.textContent = total.toLocaleString();
 
-    if (!res.ok) {
-      loginStatus.textContent = 'تعذر تسجيل الدخول.';
-      return;
-    }
-
-    setUser(username);
-    loginStatus.textContent = `مرحباً ${username}`;
-    await refreshStatus();
-  });
-
-  const existing = getUser();
-  if (existing) {
-    usernameInput.value = existing;
-    loginStatus.textContent = `مرحباً ${existing}`;
+  cartItemsEl.innerHTML = '';
+  if (!state.cart.length) {
+    cartItemsEl.innerHTML = '<p class="cart-item">السلة فارغة.</p>';
+    return;
   }
+
+  state.cart.forEach((item) => {
+    const row = document.createElement('div');
+    row.className = 'cart-item';
+    row.textContent = `${item.name} × ${item.qty}`;
+    cartItemsEl.appendChild(row);
+  });
 }
 
-refreshStatus();
-refreshStories();
-setInterval(refreshStatus, 10000);
+searchEl.addEventListener('input', (e) => {
+  state.query = e.target.value;
+  renderProducts();
+});
+
+cartBtn.onclick = () => cartDrawer.classList.toggle('open');
+generateCodeBtn.onclick = () => (paymentCodeEl.textContent = generatePaymentCode());
+
+paymentCodeEl.textContent = generatePaymentCode();
+renderCategories();
+renderProducts();
+renderCart();

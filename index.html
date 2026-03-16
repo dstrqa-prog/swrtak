@@ -3,40 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>منصة محلية متعددة</title>
+  <title>GlowStore | متجر إلكتروني احترافي</title>
+  <meta name="description" content="متجر إلكتروني احترافي 100% مع إدارة منتجات وطلبات ودفع إلكتروني عبر Sham Cash." />
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <h1>منصة الترفيه المحلية</h1>
-    <div id="online-pill">المتصلون الآن: 0</div>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <header class="topbar glass">
+    <h1>GlowStore</h1>
+    <nav>
+      <a href="#products">المنتجات</a>
+      <a href="#checkout">الطلب والدفع</a>
+      <a href="#admin">لوحة التحكم</a>
+      <a href="#about">من نحن</a>
+    </nav>
+    <button id="cart-btn" class="neon-btn">السلة <span id="cart-count">0</span></button>
   </header>
 
   <main class="container">
-    <section class="card login-card">
-      <h2>تسجيل الدخول</h2>
-      <form id="login-form">
-        <input id="username" type="text" placeholder="اكتب اسم المستخدم" required />
-        <button type="submit">دخول</button>
-      </form>
-      <p id="login-status">غير مسجل الدخول.</p>
-    </section>
-
-    <section class="card modules">
-      <h2>الوحدات</h2>
-      <div class="grid">
-        <a class="module-link" href="/videos/index.html">🎬 الفيديوهات المحلية</a>
-        <a class="module-link" href="/games/index.html">🎮 الألعاب</a>
-        <a class="module-link" href="/chat/index.html">💬 الشات</a>
-        <a class="module-link" href="/stories/index.html">📖 الستوري 24 ساعة</a>
+    <section class="hero glass">
+      <p class="badge">متجر حقيقي 100% | تصميم متوهج | جاهز للجوال</p>
+      <h2>حوّل متجر السوشيال ميديا إلى منصة بيع احترافية</h2>
+      <p>
+        واجهة عصرية سريعة، بحث مباشر، أقسام منظمة، طلبات مركزية، دفع عند الاستلام
+        أو عبر <strong>Sham Cash</strong> مع أكواد دفع فريدة وإشعارات Telegram فورية.
+      </p>
+      <div class="hero-actions">
+        <a href="#products" class="neon-btn">تصفح المنتجات</a>
+        <a href="#features" class="outline-btn">استكشف المزايا</a>
       </div>
     </section>
 
-    <section class="card">
-      <h2>آخر الستوري</h2>
-      <div id="stories-preview" class="stories-preview"></div>
+    <section id="features" class="glass">
+      <h3>مزايا النظام الأساسية</h3>
+      <div class="feature-grid">
+        <article class="feature-card"><h4>🛍️ عرض احترافي</h4><p>بطاقات منتج بصورة رئيسية، سعر، Product ID وزر إضافة للسلة.</p></article>
+        <article class="feature-card"><h4>⚡ بحث مباشر</h4><p>Live Search بالاسم أو رقم المنتج لتجربة سريعة.</p></article>
+        <article class="feature-card"><h4>💳 دفع مرن</h4><p>الدفع عند الاستلام + Sham Cash مع توليد كود فريد للطلب.</p></article>
+        <article class="feature-card"><h4>📩 إشعارات فورية</h4><p>استلام كل طلب فوراً عبر Telegram Bot مع التفاصيل الكاملة.</p></article>
+      </div>
+    </section>
+
+    <section id="products" class="glass">
+      <div class="section-head">
+        <h3>منتجات المتجر</h3>
+        <input id="search" type="search" placeholder="ابحث بالاسم أو Product ID..." />
+      </div>
+      <div id="categories" class="categories"></div>
+      <div id="products-grid" class="products-grid"></div>
+    </section>
+
+    <section id="checkout" class="glass split">
+      <div>
+        <h3>صفحة الطلب والدفع</h3>
+        <ul>
+          <li>بيانات العميل: الاسم، الهاتف، العنوان، وسيلة التواصل.</li>
+          <li>الدفع عند الاستلام: يتم حفظ الطلب وإرساله للتاجر فوراً.</li>
+          <li>Sham Cash: توليد كود من 10 خانات + QR + نص نسخ جاهز للتحويل.</li>
+        </ul>
+      </div>
+      <div class="payment-box">
+        <p>مثال كود الدفع:</p>
+        <code id="payment-code">—</code>
+        <button id="generate-code" class="neon-btn">توليد كود جديد</button>
+      </div>
+    </section>
+
+    <section id="admin" class="glass">
+      <h3>لوحة التحكم</h3>
+      <div class="feature-grid">
+        <article class="feature-card"><h4>Dashboard</h4><p>إحصائيات المنتجات والطلبات اليومية.</p></article>
+        <article class="feature-card"><h4>إدارة المنتجات</h4><p>إضافة/تعديل/حذف، أسعار، كميات، وصور متعددة.</p></article>
+        <article class="feature-card"><h4>إدارة الطلبات</h4><p>جدول شامل مع تفاصيل كل طلب وحالة الدفع.</p></article>
+        <article class="feature-card"><h4>إعدادات الدفع</h4><p>تحديث QR وID والرابط المباشر لحساب Sham Cash.</p></article>
+      </div>
+    </section>
+
+    <section id="about" class="glass">
+      <h3>من نحن</h3>
+      <p>
+        هذا النموذج يعكس متجر إلكتروني متكامل قابل للنشر على استضافة PHP/MySQL
+        مثل InfinityFree مع واجهة Responsive وتجربة احترافية على الهاتف والكمبيوتر.
+      </p>
     </section>
   </main>
+
+  <aside id="cart-drawer" class="cart-drawer">
+    <h3>سلة المشتريات</h3>
+    <div id="cart-items"></div>
+    <p class="total">الإجمالي: <span id="cart-total">0</span> ل.س</p>
+  </aside>
 
   <script src="/static/script.js"></script>
 </body>
