@@ -1,0 +1,2 @@
+<?php require_once __DIR__ . '/../includes/functions.php'; require_once __DIR__ . '/../includes/security.php'; $s=get_settings(); ?>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/assets/css/style.css"><title>الخصوصية</title></head><body><main class="container"><h1>سياسة الخصوصية</h1><div class="panel"><?= nl2br(e($s['privacy_policy'])) ?></div></main></body></html>

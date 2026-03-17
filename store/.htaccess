@@ -1,0 +1,12 @@
+Options -Indexes
+RewriteEngine On
+RewriteRule ^(storage|includes)/ - [F,L]
+
+<FilesMatch "\.(json|env|ini|log)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
+</FilesMatch>
