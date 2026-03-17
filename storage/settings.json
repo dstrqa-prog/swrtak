@@ -1,0 +1,15 @@
+{
+  "store_name": "Neon Store",
+  "admin_username": "admin",
+  "admin_password_hash": "$2y$10$kRyhzqD8oyluRz5l8oZ5G.2Q7xWjWb7rpkTg7JSM6f6mLSTl9W40e",
+  "admin_access_key": "change-this-secret-key",
+  "about_editable": "هذا النص قابل للتعديل من لوحة الإدارة لعرض قصة البائع ورسالة المتجر.",
+  "privacy_policy": "نحن نحترم خصوصيتك، ونستخدم بياناتك فقط لتنفيذ الطلبات وخدمة العملاء.",
+  "cash_on_delivery_enabled": true,
+  "shamcash_enabled": true,
+  "shamcash_account_name": "",
+  "shamcash_account_id": "",
+  "shamcash_qr": "",
+  "telegram_bot_token": "",
+  "telegram_chat_id": ""
+}

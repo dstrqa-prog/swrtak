@@ -1,0 +1,11 @@
+[
+  {
+    "id": "prd_demo_1",
+    "name": "ساعة ذكية احترافية",
+    "price": 59.99,
+    "qty": 12,
+    "description": "ساعة ذكية بتصميم عصري وشاشة واضحة ومزايا تتبع نشاط.",
+    "category": "الكترونيات",
+    "image": "/assets/images/placeholder.svg"
+  }
+]
